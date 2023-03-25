@@ -1,0 +1,45 @@
+body {
+    background-color: rgb(14, 14, 14);
+    color: white;
+    font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+h1 {
+    color: #1ed760;
+    font-size: 70px;
+    font-weight: 900;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: clamp(10px, 80%, 500px);
+}
+
+form > input {
+    width: 90%;
+    padding: 20px;
+    margin: 10px;
+    border: 2px solid white;
+}
+
+form > button {
+    width: 100%;
+    padding: 20px;
+    font-size: 40px;
+    font-weight: 900;
+    background-color: #1ed760;
+    color: black;
+    margin-top: 30px;
+    border: none;
+}
+
+form > button:hover {
+    background-color: white;
+    cursor: pointer;
+}
