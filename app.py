@@ -31,18 +31,18 @@ def index():
 
        # PUT ARTISTS INTO LIST
 
-        artists = []
-        artists.extend([artist1, artist2, artist3])
+        inputted_artists = []
+        inputted_artists.extend([artist1, artist2, artist3])
 
         # CHECK ALL ARTISTS ARE IN SPOTIFY DATABASE
 
-        for i in range(len(artists)):
-            if get_artist_id(artists[i]) == False:
+        for i in range(len(inputted_artists)):
+            if get_artist_id(inputted_artists[i]) == False:
                 return redirect("/")
 
         # GET 5 ARTIST RECOMMENDATIONS FROM LIST OF ARTISTS
 
-        artist_recs = get_all_related_artists(artists)
+        artist_recs = get_all_related_artists(inputted_artists)
         session['artist_recs'] = artist_recs
         
         return redirect("/results")

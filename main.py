@@ -32,15 +32,28 @@ def get_related_artists(artist):
     all_related_artists = []
 
     for a in related_artists[:10]:
-        all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify']})
+        all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify'], 'image': a['images'][0]['url']})
     
     return all_related_artists
 
-def get_all_related_artists(artists):
+def get_all_related_artists(inputted_artists):
     all_related_artists = []
 
-    for i in range(len(artists)):
-        artist = get_artist_id(artists[i])
+    for i in range(len(inputted_artists)):
+        artist = get_artist_id(inputted_artists[i])
         all_related_artists.extend(get_related_artists(artist))
     
-    return random.sample(all_related_artists, 5)
+    return select_random_artists(all_related_artists, inputted_artists)
+
+def select_random_artists(all_related_artists, inputted_artists):
+
+    artist_list = []
+
+    while (len(artist_list) < 5):
+        artist = random.sample(all_related_artists, 1)
+
+        if artist not in artist_list:
+            if artist not in inputted_artists:
+                artist_list.append(artist[0])
+    
+    return artist_list

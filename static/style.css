@@ -14,8 +14,10 @@ h1 {
     font-weight: 900;
 }
 
-p {
+a {
     font-size: 20px;
+    text-decoration: none;
+    color: white;
 }
 
 form {
@@ -50,13 +52,28 @@ form > button:hover {
 
 .artist_display {
     width: 80%;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .artist {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.artist img {
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border: 5px solid rgb(14, 14, 14);
+}
+
+.artist img:hover {
+    border: 5px solid #1ed760;
 }
