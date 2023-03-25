@@ -43,6 +43,7 @@ form > button {
     color: black;
     margin-top: 30px;
     border: none;
+    border-radius: 7px;
 }
 
 form > button:hover {
