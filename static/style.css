@@ -10,8 +10,12 @@ body {
 
 h1 {
     color: #1ed760;
-    font-size: 70px;
+    font-size: 4.3em;
     font-weight: 900;
+}
+
+p {
+    font-size: 20px;
 }
 
 form {
@@ -42,4 +46,17 @@ form > button {
 form > button:hover {
     background-color: white;
     cursor: pointer;
+}
+
+.artist_display {
+    width: 80%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.artist {
+    padding: 10px;
 }
