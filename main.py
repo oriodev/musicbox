@@ -3,7 +3,6 @@ import spotipy, sys, random, os
 from spotipy.oauth2 import SpotifyClientCredentials
 from dotenv import load_dotenv
 
-
 # GET ACCESS TOKEN
 
 load_dotenv()
@@ -11,39 +10,28 @@ client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id, client_secret))
 
-def main():
-    artist_recs = []
-
-    for i in range(3):
-        get_artist(artist_recs)
-    
-    for artist in return_random_artists(artist_recs):
-        print(artist)
-
-
 # GET ARTIST
 
-def get_artist(artist_recs):
+def get_artist_id(name):
+    artist = sp.search(q='artist:' + name, type='artist', limit=1)
 
-    while len(artist_recs) < 30:
+    if len(artist['artists']['items']) != 0:
+        return artist['artists']['items'][0]['uri']
 
-        name = input("artist name: ")
+def get_related_artists(artist):
+    related_artists = sp.artist_related_artists(artist)['artists']
+    all_related_artists = []
 
-        results = sp.search(q='artist:' + name, type='artist', limit=1)
+    for a in related_artists[:10]:
+        all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify']})
+    
+    return all_related_artists
 
-        if len(results['artists']['items']) != 0:
+def get_all_related_artists(artists):
+    all_related_artists = []
 
-            artist_id = results['artists']['items'][0]['uri']
-
-            related_artists = sp.artist_related_artists(artist_id)
-            related_artists = related_artists['artists']
-            for a in related_artists[:10]:
-                temp_dic = {}
-                temp_dic['name'] = a['name']
-                temp_dic['link'] = a['external_urls']['spotify']
-                artist_recs.append(temp_dic)
-
-def return_random_artists(artist_recs):
-    return random.sample(artist_recs, 5)
-
-main()
+    for i in range(len(artists)):
+        artist = get_artist_id(artists[i])
+        all_related_artists.extend(get_related_artists(artist))
+    
+    return random.sample(all_related_artists, 5)
