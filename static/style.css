@@ -32,6 +32,8 @@ form > input {
     padding: 20px;
     margin: 10px;
     border: 2px solid white;
+    text-transform:uppercase;
+    font-size: 20px;
 }
 
 form > button {
@@ -54,7 +56,7 @@ form > button:hover {
 .artist_display {
     width: 80%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
     gap: 20px;
     margin-top: 20px;
 }

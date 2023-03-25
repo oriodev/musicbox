@@ -36,14 +36,14 @@ def get_related_artists(artist):
     
     return all_related_artists
 
-def get_all_related_artists(inputted_artists):
+def get_all_related_artists(inputted_artists, num_of_recs):
     all_related_artists = []
 
     for i in range(len(inputted_artists)):
         artist = get_artist_id(inputted_artists[i])
         all_related_artists.extend(get_related_artists(artist))
     
-    return select_random_artists(all_related_artists, inputted_artists)
+    return select_random_artists(all_related_artists, inputted_artists, num_of_recs)
 
 def is_artist_in_list(artist, list):
 
@@ -57,11 +57,11 @@ def is_artist_in_list(artist, list):
         
     return False
 
-def select_random_artists(all_related_artists, inputted_artists):
+def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
 
     artist_list = []
-
-    while (len(artist_list) < 5):
+    
+    while (len(artist_list) < int(num_of_recs)):
         artist = random.sample(all_related_artists, 1)
 
         if is_artist_in_list(artist[0]['name'], artist_list) == False: 

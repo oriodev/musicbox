@@ -23,6 +23,7 @@ def index():
         artist1 = request.form.get("artist-one")
         artist2 = request.form.get("artist-two")
         artist3 = request.form.get("artist-three")
+        num_of_recs = request.form.get("number")
     
         # IF ANY BOXES ARE LEFT EMPTY THEN IT FAILS
 
@@ -42,7 +43,7 @@ def index():
 
         # GET 5 ARTIST RECOMMENDATIONS FROM LIST OF ARTISTS
 
-        artist_recs = get_all_related_artists(inputted_artists)
+        artist_recs = get_all_related_artists(inputted_artists, num_of_recs)
         session['artist_recs'] = artist_recs
         
         return redirect("/results")
