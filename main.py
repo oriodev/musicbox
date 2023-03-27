@@ -19,8 +19,16 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id, client_sec
 
 # GET ARTIST
 
-def get_artist_id(name):
+def get_artist(name):
     artist = sp.search(q='artist:' + name, type='artist', limit=1) # CALLS API
+
+    if len(artist['artists']['items']) != 0:
+        return artist
+    else:
+        return False
+
+def get_artist_id(artist):
+    # artist = sp.search(q='artist:' + name, type='artist', limit=1) # CALLS API
 
     if len(artist['artists']['items']) != 0:
         return artist['artists']['items'][0]['uri']
@@ -44,7 +52,7 @@ def get_all_related_artists(inputted_artists, num_of_recs):
     all_related_artists = []
 
     for i in range(len(inputted_artists)):
-        artist = get_artist_id(inputted_artists[i])
+        artist = get_artist_id(get_artist(inputted_artists[i]))
         all_related_artists.extend(get_related_artists(artist)) # CALLS API 3 TIMES
     
     return select_random_artists(all_related_artists, inputted_artists, num_of_recs)
@@ -53,13 +61,11 @@ def get_all_related_artists(inputted_artists, num_of_recs):
 
 def is_artist_in_list(artist, list):
 
-    for i in range(len(list)):
-        try:
-            if get_artist_id(artist) == get_artist_id(list[i]['name']):
-                return True
-        except:
-            if get_artist_id(artist) == get_artist_id(list[i]):
-                return True
+    list_length = len(list)
+
+    for i in range(list_length):
+        if artist[0]['name'] == list[i]['name']:
+            return True
         
     return False
 
@@ -72,7 +78,7 @@ def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
     while (len(artist_list) < int(num_of_recs)):
         artist = random.sample(all_related_artists, 1)
 
-        if is_artist_in_list(artist[0]['name'], artist_list) == False: 
+        if is_artist_in_list(artist, artist_list) == False: 
                 artist_list.append(artist[0])
     
     return artist_list

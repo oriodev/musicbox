@@ -12,6 +12,12 @@ h1 {
     color: #1ed760;
     font-size: 4.3em;
     font-weight: 900;
+    margin: 0;
+}
+
+.message {
+    margin-bottom: 40px;
+    font-size: 1.3em;
 }
 
 a {
