@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from main import get_all_related_artists, get_artist_id, get_artist, is_artist_in_list
 
 app = Flask(__name__)
@@ -28,6 +28,7 @@ def index():
         # IF ANY BOXES ARE LEFT EMPTY THEN IT FAILS
 
         if not artist1 or not artist2 or not artist3:
+            flash("input 3 artists")
             return redirect("/")
 
        # PUT ARTISTS INTO LIST
@@ -43,10 +44,12 @@ def index():
             if input != False:
                 inputted_artists[i] = input['artists']['items'][0]['name']
             else:
+                flash("one or more artists not in database")
                 return redirect("/")
 
         # CHECK IF ALL ARTISTS ARE DISTINCT
             if length > len(set(inputted_artists)):
+                flash("artists must be unique")
                 return redirect("/")
 
         # GET 5 ARTIST RECOMMENDATIONS FROM LIST OF ARTISTS
