@@ -79,6 +79,7 @@ def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
         artist = random.sample(all_related_artists, 1)
 
         if is_artist_in_list(artist, artist_list) == False: 
+            if artist[0]['name'] not in inputted_artists:
                 artist_list.append(artist[0])
     
     return artist_list

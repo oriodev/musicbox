@@ -10,7 +10,7 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def index():
 
     if request.method == "GET":
-        return render_template('index.html', message=session['message'])
+        return render_template('index.html')
     
     if request.method == "POST":
 
@@ -28,7 +28,6 @@ def index():
         # IF ANY BOXES ARE LEFT EMPTY THEN IT FAILS
 
         if not artist1 or not artist2 or not artist3:
-            session['message']  = "submit 3 artists"
             return redirect("/")
 
        # PUT ARTISTS INTO LIST
@@ -44,12 +43,10 @@ def index():
             if input != False:
                 inputted_artists[i] = input['artists']['items'][0]['name']
             else:
-                session['message']  = "artist not in database"
                 return redirect("/")
 
         # CHECK IF ALL ARTISTS ARE DISTINCT
             if length > len(set(inputted_artists)):
-                session['message'] = "all artists must be unique"
                 return redirect("/")
 
         # GET 5 ARTIST RECOMMENDATIONS FROM LIST OF ARTISTS
