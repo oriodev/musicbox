@@ -5,6 +5,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 
@@ -63,11 +65,14 @@ form > button:hover {
 
 .artist_display {
     width: 80%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
-    gap: 20px;
     margin: 70px 0;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    
 }
 
 .artist {
@@ -76,7 +81,7 @@ form > button:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    
+
 }
 
 .artist img {
@@ -89,6 +94,7 @@ form > button:hover {
 .artist img:hover {
     border: 5px solid #1ed760;
 }
+
 
 /* RECS INPUT PAGE: RADIO BUTTONS */
 
