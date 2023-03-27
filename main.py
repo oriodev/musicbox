@@ -20,15 +20,17 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id, client_sec
 # GET ARTIST
 
 def get_artist_id(name):
-    artist = sp.search(q='artist:' + name, type='artist', limit=1)
+    artist = sp.search(q='artist:' + name, type='artist', limit=1) # CALLS API
 
     if len(artist['artists']['items']) != 0:
         return artist['artists']['items'][0]['uri']
     else:
         return False
 
+# GET RELATED ARTISTS FROM AN ARTIST
+
 def get_related_artists(artist):
-    related_artists = sp.artist_related_artists(artist)['artists']
+    related_artists = sp.artist_related_artists(artist)['artists'] # CALLS API
     all_related_artists = []
 
     for a in related_artists[:10]:
@@ -36,14 +38,18 @@ def get_related_artists(artist):
     
     return all_related_artists
 
+# GET ALL THE RELATED ARTISTS FROM ALL THE ARTISTS
+
 def get_all_related_artists(inputted_artists, num_of_recs):
     all_related_artists = []
 
     for i in range(len(inputted_artists)):
         artist = get_artist_id(inputted_artists[i])
-        all_related_artists.extend(get_related_artists(artist))
+        all_related_artists.extend(get_related_artists(artist)) # CALLS API 3 TIMES
     
     return select_random_artists(all_related_artists, inputted_artists, num_of_recs)
+
+# CHECKS IF THE ARTIST IS IN THE INPUTTED LIST
 
 def is_artist_in_list(artist, list):
 
@@ -57,6 +63,8 @@ def is_artist_in_list(artist, list):
         
     return False
 
+# SELECT RANDOM ARTISTS TO RETURN
+
 def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
 
     artist_list = []
@@ -65,7 +73,6 @@ def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
         artist = random.sample(all_related_artists, 1)
 
         if is_artist_in_list(artist[0]['name'], artist_list) == False: 
-            if artist not in inputted_artists: 
                 artist_list.append(artist[0])
     
     return artist_list

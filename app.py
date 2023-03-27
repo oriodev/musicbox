@@ -24,6 +24,7 @@ def index():
         artist2 = request.form.get("artist-two")
         artist3 = request.form.get("artist-three")
         num_of_recs = request.form.get("number")
+        print(num_of_recs)
     
         # IF ANY BOXES ARE LEFT EMPTY THEN IT FAILS
 

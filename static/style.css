@@ -80,3 +80,19 @@ form > button:hover {
 .artist img:hover {
     border: 5px solid #1ed760;
 }
+
+#numOfRecs {
+    display: flex;
+    gap: 20px;
+    text-align: center;
+}
+
+#numOfRecs span {
+    display: flex;
+    flex-direction: column;
+}
+
+#numOfRecs input[type="radio"] {
+    transform: scale(2);
+    margin-bottom: 15px;
+}
