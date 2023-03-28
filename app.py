@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from main import get_all_related_artists, get_artist_id, get_artist, is_artist_in_list
+from main import choose_songs_to_add_to_playlist, add_songs_to_playlist, make_playlist
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -52,7 +53,7 @@ def index():
                 flash("artists must be unique")
                 return redirect("/")
 
-        # GET 5 ARTIST RECOMMENDATIONS FROM LIST OF ARTISTS
+        # GET ARTIST RECOMMENDATIONS FROM LIST OF ARTISTS
 
         artist_recs = get_all_related_artists(inputted_artists, num_of_recs)
         session['artist_recs'] = artist_recs
@@ -69,3 +70,17 @@ def results():
         return render_template('results.html', artist_recs=artist_recs)
     if request.method == "POST":
         return redirect("/")
+
+@app.route("/playlist", methods=["GET", "POST"])
+def playlist():
+
+    if request.method == "GET":
+        return render_template("playlist.html")
+    
+    if request.method == "POST":
+        artists = request.form.getlist('selected_artists')
+        songs_to_add = choose_songs_to_add_to_playlist(artists)
+
+        # add_songs_to_playlist(make_playlist(), songs_to_add)
+
+        return render_template("playlist.html")

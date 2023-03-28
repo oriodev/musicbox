@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+
+{% block main %}
+
+
+<h1>PLAYLIST</h1>
+
+<form action="/playlist" method="post">
+    <button type="submit">ADD PLAYLIST TO SPOTIFY</button>
+</form>
+
+<form action="/" method="get">
+    <button type="submit">BACK TO START</button>
+</form>
+
+{% endblock %}

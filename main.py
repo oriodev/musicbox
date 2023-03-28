@@ -40,21 +40,6 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
 sp = spotipy.client.Spotify(auth=token)
 user_id = sp.me()['id']
 
-#
-#
-# GENERATING A PLAYLIST
-#
-#
-
-def make_playlist():
-    playlist = sp.user_playlist_create(user_id, 'name', public=True, collaborative=False, description='')
-    return playlist["id"]
-
-
-def add_songs_to_playlist(playlist):
-    playlist_add_items(playlist_id, items, position=None)
-
-print(make_playlist())
 
 # 
 #
@@ -87,7 +72,7 @@ def get_related_artists(artist):
     all_related_artists = []
 
     for a in related_artists[:10]:
-        all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify'], 'image': a['images'][0]['url']})
+        all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify'], 'image': a['images'][0]['url'], 'id': a['id']})
     
     return all_related_artists
 
@@ -128,3 +113,42 @@ def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
                 artist_list.append(artist[0])
     
     return artist_list
+
+#
+#
+# GENERATING A PLAYLIST
+#
+#
+
+# MAKE THE PLAYLIST
+
+def make_playlist():
+    playlist = sp.user_playlist_create(user_id, 'name', public=True, collaborative=False, description='')
+    return playlist["id"]
+
+# RETURNS LIST OF TOP 10 SONGS FROM EACH SELECTED ARTIST
+
+def choose_songs_to_add_to_playlist(artists):
+    songs_to_add = []
+
+    for i in range(len(artists)):
+        tracks = sp.artist_top_tracks(artists[i])
+
+        for i in range(len(tracks['tracks'])):
+            song = {}
+            song["id"] = tracks['tracks'][i]['id']
+            song["name"] = tracks['tracks'][i]['name']
+            songs_to_add.append(song)
+    
+    return songs_to_add
+
+# ADD SONGS TO PLAYLIST
+
+def add_songs_to_playlist(playlist, songs_to_add):
+
+    song_ids = []
+
+    for row in songs_to_add:
+        song_ids.append(row['id'])
+
+    sp.playlist_add_items(playlist, song_ids)

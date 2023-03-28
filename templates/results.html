@@ -4,21 +4,29 @@
 
 <h1>SOME ARTISTS YOU MIGHT LIKE</h1>
 
-<div class="artist_display">
+<form class="artist_display_form" action="/playlist" method="post">
 
-    {% for row in artist_recs %}
+    <div class="artist_display">
 
-        <div class="artist">
-            <a href="{{ row['link']}}" target="_blank"> <img src="{{ row['image'] }}" alt=""> </a>
-            <a href="{{ row['link']}}" target="_blank"> {{ row['name'] }} </a> 
-        </div>
+        {% for row in artist_recs %}
 
-    {% endfor %}
+            <div class="artist">
+                <a href="{{ row['link']}}" target="_blank"> <img src="{{ row['image'] }}" alt=""> </a>
+                <a href="{{ row['link']}}" target="_blank"> {{ row['name'] }} </a> 
+                
+                <input type="checkbox"  name='selected_artists' value="{{ row['id']}}">
+        
+            </div>
 
-</div>
+        {% endfor %}
 
+    </div>
 
-<form action="/results" method="post">
+    <button type="submit">GENERATE PLAYLIST</button>
+
+</form>
+
+<form action="/" method="get">
     <button type="submit">GO BACK</button>
 </form>
 

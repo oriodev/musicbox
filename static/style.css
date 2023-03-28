@@ -63,6 +63,14 @@ form > button:hover {
 
 /* RECS RESULTS: ARTIST DISPLAY */
 
+.artist_display_form {
+    width: 100%;
+}
+
+.artist_display_form > button {
+    width: clamp(10px, 80%, 500px);
+}
+
 .artist_display {
     width: 80%;
     margin: 70px 0;
