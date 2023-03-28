@@ -2,9 +2,15 @@
 #### Video Demo:  <URL HERE>
 #### Description:
 
-MUSICBOX is a program that utilises the Spotify API to generate musical artist recommendations for the user based on artists that they already enjoy. The user can submit three artists that they like and then input a number of recommendations that they wish to recieve, between one and twenty. The application then calls the Spotify API to find artists that are similar to the artists inputted by the user. To do so, the application finds the artist ID, then grabs the data related to that artist ID from the API, and makes a dictionary of related artists. Then the API is called on those related artists to find their name, a link to their Spotify page, and their Spotify profile picture. This allows the application to display a grid of artist recommendations with their names, pictures, and a link to their Spotify page so that the user can easily check out their music recommendations. 
+MUSICBOX is a program that utilises the Spotify API to generate musical artist recommendations for the user based on artists that they already enjoy and then compiles the top 10 songs from those artists into a playlist that the user can then add to their spotify account. They can also choose a custom name for the playlist prior to generation.
 
-##### Walkthrough
+WALKTHROUGH
+
+The user inputs three artists that they already like and chooses to generate either 5, 10 or 15 receommendations from those three artists. This generation is performed through spotify's 'find related artists' API call which returns a number of related artists from each of the three inputted artists. The program then randomly chooses 5, 10 or 15 of these artists, making sure each one is unique, and displays them in a grid on the next page, along with a photo of the artist, the name and a link to their spotify page. 
+
+Each artist recommendation has a checkbox beneath their photo and name. The user can select the artists that they like the look of and the program will use the Spotify API to gather each artist's top 10 most popular songs. These songs will then be compiled into a playlist. The user can then enter a custom name for the playlist and if they wish to add the playlist to their spotify account then they can press that button and do so. The playlist will then be added to the user's account, where they can play the songs and explore new music that is similar to the music they already enjoy.
+
+##### File Walkthrough
 
 app.py is the main file that holds the routes and main logic. It has two functions, one that calls index.html (the front page) and one that calls results.html (the page that displays the music recommendations). The logic on this page determines what is done with the input recieved via the forms. It relies heavily on calling python functions from main.py, where the majority of the real background work is done. It also utilises sessions to pass data between routes.
 
