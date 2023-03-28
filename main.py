@@ -1,5 +1,7 @@
 import spotipy, sys, random, os
 
+from spotipy import util
+from spotipy.oauth2 import SpotifyOAuth
 from spotipy.oauth2 import SpotifyClientCredentials
 from dotenv import load_dotenv
 
@@ -13,9 +15,52 @@ if not os.getenv("client_id"):
 if not os.getenv("client_secret"):
     raise RuntimeError("API_KEY not set")
 
+if not os.getenv("redirect_uri"):
+    raise RuntimeError("REDIRECT_URI not set")
+
+if not os.getenv("username"):
+    raise RuntimeError("USERNAME not set")
+
 client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id, client_secret))
+redirect_uri = os.getenv("redirect_uri")
+username = os.getenv("username")
+scope="playlist-modify-public"
+token = util.prompt_for_user_token(username, scope, client_id, client_secret, redirect_uri)
+
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+	client_id = client_id,
+	client_secret = client_secret,
+	redirect_uri = redirect_uri,
+	scope=scope
+))
+
+# GET USER ID
+
+sp = spotipy.client.Spotify(auth=token)
+user_id = sp.me()['id']
+
+#
+#
+# GENERATING A PLAYLIST
+#
+#
+
+def make_playlist():
+    playlist = sp.user_playlist_create(user_id, 'name', public=True, collaborative=False, description='')
+    return playlist["id"]
+
+
+def add_songs_to_playlist(playlist):
+    playlist_add_items(playlist_id, items, position=None)
+
+print(make_playlist())
+
+# 
+#
+# GENERATING RECOMMENDATIONS
+#
+#
 
 # GET ARTIST
 
