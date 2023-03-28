@@ -4,7 +4,17 @@
 {% block main %}
 
 
-<h1>CONFIRMATION</h1>
+<h1>PLAYLIST ADDED TO SPOTIFY</h1>
+
+<div class="confirmation_display">
+    <img src="{{ playlist_cover }}" alt="">
+    <h3>{{ playlist_name }}</h3>
+</div>
+
+
+<form action="/" method="get">
+    <button type="submit">BACK TO START</button>
+</form>
 
 
 

@@ -14,7 +14,7 @@ h1 {
     color: #1ed760;
     font-size: 4.3em;
     font-weight: 900;
-    margin: 20px 0 0 0;
+    margin: 20px 0 40px 0;
 }
 
 .message {
@@ -143,4 +143,14 @@ form > button:hover {
 
 .song > img {
     width: 75px;
+}
+
+/* CONFIRMATION PAGE */
+
+.confirmation_display {
+    font-size: 20px;
+}
+
+.confirmation_display img {
+    width: 250px;
 }

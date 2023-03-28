@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from main import get_all_related_artists, get_artist_id, get_artist, is_artist_in_list
-from main import choose_songs_to_add_to_playlist, add_songs_to_playlist, make_playlist
+from main import choose_songs_to_add_to_playlist, add_songs_to_playlist, make_playlist, get_playlist_cover
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -79,6 +79,7 @@ def playlist():
     
     if request.method == "POST":
         artists = request.form.getlist('selected_artists')
+        session['songs_to_add'] = []
         session['songs_to_add'] = choose_songs_to_add_to_playlist(artists)
 
         return render_template("playlist.html", songs=session['songs_to_add'])
@@ -93,6 +94,11 @@ def confirmation():
 
         playlist_name = request.form.get('playlist_name')
         songs_to_add = session['songs_to_add']
+        playlist_id = make_playlist(playlist_name)
         
-        add_songs_to_playlist(make_playlist(playlist_name), songs_to_add)
-        return render_template("confirmation.html")
+        add_songs_to_playlist(playlist_id, songs_to_add)
+
+        playlist_cover = get_playlist_cover(playlist_id)[0]['url']
+
+
+        return render_template("confirmation.html", playlist_cover=playlist_cover, playlist_name=playlist_name)

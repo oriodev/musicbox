@@ -154,3 +154,8 @@ def add_songs_to_playlist(playlist, songs_to_add):
         song_ids.append(row['id'])
 
     sp.playlist_add_items(playlist, song_ids)
+
+
+def get_playlist_cover(playlist):
+    return sp.playlist_cover_image(playlist)
+
