@@ -72,8 +72,11 @@ def get_related_artists(artist):
     all_related_artists = []
 
     for a in related_artists[:10]:
-        all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify'], 'image': a['images'][0]['url'], 'id': a['id']})
-    
+        try:
+            all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify'], 'image': a['images'][0]['url'], 'id': a['id']})
+        except IndexError:
+            all_related_artists.append({'name': a['name'], 'link': a['external_urls']['spotify'], 'image': 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcommunity.spotify.com%2Ft5%2Fimage%2Fserverpage%2Fimage-id%2F25294i2836BD1C1A31BDF2%3Fv%3Dv2&f=1&nofb=1&ipt=ef0e79008f7e9e4ab937cd6d56b6f7956b67a27444efde68b315e4d046b7dc93&ipo=images', 'id': a['id']})
+
     return all_related_artists
 
 # GET ALL THE RELATED ARTISTS FROM ALL THE ARTISTS

@@ -3,6 +3,7 @@
 {% block main %}
 
 <h1>SOME ARTISTS YOU MIGHT LIKE</h1>
+<p class="result_message">select the artists you want to add to ur playlist</p>
 
 <form class="artist_display_form" action="/playlist" method="post">
 
@@ -12,7 +13,7 @@
 
             <div class="artist">
                 <a href="{{ row['link']}}" target="_blank"> <img src="{{ row['image'] }}" alt=""> </a>
-                <a href="{{ row['link']}}" target="_blank"> {{ row['name'] }} </a> 
+                <a href="{{ row['link']}}" target="_blank" id="p"> {{ row['name'] }} </a> 
                 
                 <input type="checkbox"  name='selected_artists' value="{{ row['id']}}">
         
