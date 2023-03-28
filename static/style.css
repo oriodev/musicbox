@@ -121,3 +121,26 @@ form > button:hover {
     transform: scale(2);
     margin-bottom: 15px;
 }
+
+/* PLAYIST DISPLAY: SONG DIVS */
+
+.playlist_display {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+ 
+    padding: 20px;
+
+    border-radius: 20px;
+}
+
+.song {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 20px;
+}
+
+.song > img {
+    width: 75px;
+}

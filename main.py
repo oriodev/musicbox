@@ -122,8 +122,8 @@ def select_random_artists(all_related_artists, inputted_artists, num_of_recs):
 
 # MAKE THE PLAYLIST
 
-def make_playlist():
-    playlist = sp.user_playlist_create(user_id, 'name', public=True, collaborative=False, description='')
+def make_playlist(playlist_name):
+    playlist = sp.user_playlist_create(user_id, playlist_name, public=True, collaborative=False, description='')
     return playlist["id"]
 
 # RETURNS LIST OF TOP 10 SONGS FROM EACH SELECTED ARTIST
@@ -138,6 +138,8 @@ def choose_songs_to_add_to_playlist(artists):
             song = {}
             song["id"] = tracks['tracks'][i]['id']
             song["name"] = tracks['tracks'][i]['name']
+            song["artist"] = tracks['tracks'][i]['album']['artists'][0]['name']
+            song["image"] = tracks['tracks'][i]['album']['images'][0]['url']
             songs_to_add.append(song)
     
     return songs_to_add

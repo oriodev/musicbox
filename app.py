@@ -79,8 +79,20 @@ def playlist():
     
     if request.method == "POST":
         artists = request.form.getlist('selected_artists')
-        songs_to_add = choose_songs_to_add_to_playlist(artists)
+        session['songs_to_add'] = choose_songs_to_add_to_playlist(artists)
 
-        # add_songs_to_playlist(make_playlist(), songs_to_add)
+        return render_template("playlist.html", songs=session['songs_to_add'])
 
-        return render_template("playlist.html")
+@app.route("/confirmation", methods=["GET", "POST"])
+def confirmation():
+
+    if request.method == "GET":
+        return render_template("confirmation.html")
+    
+    if request.method == "POST":
+
+        playlist_name = request.form.get('playlist_name')
+        songs_to_add = session['songs_to_add']
+        
+        add_songs_to_playlist(make_playlist(playlist_name), songs_to_add)
+        return render_template("confirmation.html")

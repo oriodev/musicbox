@@ -6,9 +6,28 @@
 
 <h1>PLAYLIST</h1>
 
-<form action="/playlist" method="post">
+<form action="/confirmation" method="post">
+    <input type="text" name="playlist_name" autofocus autocomplete="off" placeholder="PLAYLIST NAME" required>
+    <input type="file" id="playlist_cover" name="playlist_cover" accept="image/png, image/jpeg">
+
     <button type="submit">ADD PLAYLIST TO SPOTIFY</button>
 </form>
+
+<!-- <div class="playlist_display">
+    
+
+    {% for row in songs %}
+
+        <div class="song">
+            <img src="{{ row['image'] }}" alt=""> 
+            <p> <b>{{ row['name'] }}</b> by {{ row['artist'] }}</p>
+        </div>
+
+    {% endfor %}
+
+</div> -->
+
+
 
 <form action="/" method="get">
     <button type="submit">BACK TO START</button>
