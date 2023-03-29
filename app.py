@@ -79,8 +79,15 @@ def playlist():
     
     if request.method == "POST":
         artists = request.form.getlist('selected_artists')
+
+        if not artists:
+            for artist in session['artist_recs']:
+                artists.append(artist['id'])
+
         session['songs_to_add'] = []
         session['songs_to_add'] = choose_songs_to_add_to_playlist(artists)
+
+    
 
         return render_template("playlist.html", songs=session['songs_to_add'])
 
